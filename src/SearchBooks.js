@@ -23,7 +23,6 @@ class SearchBooks extends Component {
     } else if (this.state.gridBooks.error) {
       finalSearch = [];
     } else {
-      console.log("la2et kotob");
       this.state.gridBooks.forEach((gridBook) => {
         let filterBook = this.props.booksArray.filter(
           (book) => gridBook.id === book.id
