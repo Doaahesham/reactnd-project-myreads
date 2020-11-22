@@ -14,38 +14,33 @@ class BooksApp extends React.Component {
       this.setState({ allBooks: booksApi });
     });
   }
+  getAllBooks =() =>{
+    BooksAPI.getAll().then((booksApi) => {
+      this.setState({ allBooks: booksApi });
+    });
+  } 
   updateState = (book, shelf) => {
     BooksAPI.update(book, shelf).then(
-      BooksAPI.getAll().then((booksApi) => {
-        this.setState({ allBooks: booksApi });
-      })
+     this.getAllBooks
     );
   };
 
   render() {
     return (
       <BrowserRouter>
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <ListBooks
-              booksArray={this.state.allBooks}
-              updateState={this.updateState}
-            />
-          )}
-        />
+        <Route exact path="/">
+          <ListBooks
+            booksArray={this.state.allBooks}
+            updateState={this.updateState}
+          />
+        </Route>
 
-        <Route
-          path="/search"
-          render={() => (
-            <SearchBooks
-              booksArray={this.state.allBooks}
-              updateState={this.updateState}
-
-            />
-          )}
-        />
+        <Route path="/search">
+          <SearchBooks
+            booksArray={this.state.allBooks}
+            updateState={this.updateState}
+          />
+        </Route>
       </BrowserRouter>
     );
   }
